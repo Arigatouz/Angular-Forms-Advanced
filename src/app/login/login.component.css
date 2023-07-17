@@ -1,13 +1,13 @@
-
-
 .login-page {
   max-width: 350px;
   margin: 50px auto 0 auto;
+  padding: 16px;
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
+  margin-top: 20px;
 }
 
 .test-input {
@@ -15,4 +15,8 @@
   margin-bottom: 10px;
 }
 
-
+.field-message {
+  color: red;
+  font-size: 12px;
+  margin-block: 5px;
+}

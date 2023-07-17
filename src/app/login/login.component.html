@@ -2,26 +2,41 @@
   <mat-card-title>Login</mat-card-title>
   <mat-card-content>
 
-    <form class="login-form data-form">
+    <form class="login-form data-form" #loginForm="ngForm" (ngSubmit)="login(loginForm ,$event)">
 
-      <mat-form-field>
-
-        <input matInput type="email" name="email"
-               placeholder="Email">
-
+      <mat-form-field appearance="outline">
+        <mat-label>email</mat-label>
+        <input matInput type="email" name="email" placeholder="Email" email #email="ngModel" ngModel required
+          (ngModelChange)="onChangeEmail($event)" [ngModelOptions]="ngModelOptions">
+        <mat-error *ngIf="email.errors?.required">email is required</mat-error>
+        <mat-error *ngIf="email.errors?.email">not valid email</mat-error>
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field appearance="outline">
 
-        <input matInput type="password" placeholder="Password">
-
+        <mat-label>password</mat-label>
+        <input matInput type="password" passwordStrength placeholder="Password" name="password" #password="ngModel"
+          ngModel required minlength="8" maxlength="15">
+        <mat-error *ngIf="password.errors?.required">password is required</mat-error>
       </mat-form-field>
+      <ng-container *ngIf="password.errors | onlyOneError:['minlength','passwordStrength'] as error">
+        <div class="field-message" *ngIf="error.minlength">Your password must have characters
+          {{error.minlength.requiredLength}} but
+          it has {{error.minlength.actualLength}} characters</div>
+        <div class="field-message" *ngIf="error.passwordStrength">Password is not strong enough</div>
+      </ng-container>
 
-      <button mat-raised-button color="primary">
+      <button style="margin-bottom: 20px; transition: all 0.5s ease-in-out;" mat-raised-button color="primary"
+        type="submit" [disabled]="loginForm.invalid">
         Login
       </button>
 
     </form>
+    <div class="form-val">
+      <!-- {{loginForm.value | json}} -->
+      <!-- {{email.errors | json}} -->
+      {{password.errors | json}}
 
+    </div>
   </mat-card-content>
 </mat-card>
