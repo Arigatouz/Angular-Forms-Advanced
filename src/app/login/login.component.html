@@ -11,9 +11,7 @@
         <mat-error *ngIf="email.errors?.required">email is required</mat-error>
         <mat-error *ngIf="email.errors?.email">not valid email</mat-error>
       </mat-form-field>
-
       <mat-form-field appearance="outline">
-
         <mat-label>password</mat-label>
         <input matInput type="password" passwordStrength placeholder="Password" name="password" #password="ngModel"
           ngModel required minlength="8" maxlength="15">

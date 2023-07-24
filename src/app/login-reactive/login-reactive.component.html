@@ -2,26 +2,43 @@
   <mat-card-title>Login (Reactive)</mat-card-title>
   <mat-card-content>
 
-    <form class="login-form data-form">
+    <form class="login-form data-form" style="margin-top: 10px;" [formGroup]="form">
 
-      <mat-form-field>
-
-        <input matInput type="email" name="email"
-               placeholder="Email">
-
+      <mat-form-field appearance="outline">
+        <mat-label>email</mat-label>
+        <input matInput type="email" name="email" placeholder="Email" formControlName="email">
+        <mat-error *ngIf="email.errors?.required">email is required</mat-error>
+        <mat-error *ngIf="email.errors?.email">not valid email</mat-error>
       </mat-form-field>
 
-      <mat-form-field>
-
-        <input matInput type="password" placeholder="Password">
-
+      <mat-form-field appearance="outline">
+        <mat-label>password</mat-label>
+        <input matInput type="password" placeholder="Password" formControlName="password">
+        <mat-error *ngIf="password.errors?.required">password is required</mat-error>
       </mat-form-field>
-
-      <button mat-raised-button color="primary">
+      <ng-container *ngIf="password.errors | onlyOneError:['minlength','passwordStrength','maxlength'] as error">
+        <div class="field-error" *ngIf="error.minlength">Your password must have characters
+          {{error.minlength.requiredLength}} but
+          it has {{error.minlength.actualLength}} characters</div>
+        <div class="field-error" *ngIf="error.passwordStrength">Password is not strong enough</div>
+        <div class="field-error" *ngIf="error.maxlength">Your password must be lower than characters
+          {{error.maxlength.requiredLength}} but
+          it has {{error.maxlength.actualLength}} characters</div>
+      </ng-container>
+      <button mat-raised-button color="primary" [disabled]="form.invalid" style="transition: all 0.3s ease-in-out;"
+        (click)="login">
         Login
       </button>
+      <button mat-raised-button color="secondary" [disabled]="form.invalid"
+        style="transition: all 0.3s ease-in-out; margin-top: 10px;" (click)="reset()">
+        Reset </button>
 
     </form>
-
+    <div class="form-val">
+      {{form.value | json}}
+    </div>
+    <div class="form-val">
+      form Valid: {{form.valid ? 'yes' : 'no'}}
+    </div>
   </mat-card-content>
 </mat-card>
