@@ -13,9 +13,11 @@
       <input matStartDate placeholder="Start date" formControlName="promoStartAt">
       <input matEndDate placeholder="End date" formControlName="promoEndAt">
     </mat-date-range-input>
+    <mat-error *ngIf="form.errors?.promoRangeError && form.dirty">The start date must be before end date</mat-error>
     <mat-datepicker-toggle matSuffix [for]="promotionPicker"></mat-datepicker-toggle>
     <mat-date-range-picker #promotionPicker></mat-date-range-picker>
   </mat-form-field>
+
   <div style="margin-top: 20px;">
     {{ form.value | json }}
   </div>

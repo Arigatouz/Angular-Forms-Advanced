@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Observable } from "rxjs";
+import { filter } from "rxjs/operators";
 import { CoursesService } from "../../services/courses.service";
 import { courseTitleValidator } from "../../validators/async-course-title.validator";
 
@@ -48,6 +49,17 @@ export class CreateCourseStep1Component implements OnInit {
   ) {}
   ngOnInit() {
     this.courseCategories$ = this.coursesService.findCourseCategories();
+    const draft = localStorage.getItem("step_1");
+
+    if (draft) {
+      this.form.setValue(JSON.parse(draft));
+    }
+
+    this.form.valueChanges
+      .pipe(filter(() => this.form.valid))
+      .subscribe((value) =>
+        localStorage.setItem("step_1", JSON.stringify(value))
+      );
   }
 
   get courseTitle() {
