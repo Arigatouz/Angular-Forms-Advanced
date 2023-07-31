@@ -1,0 +1,22 @@
+<div [formGroup]="form">
+  <mat-radio-group aria-label="Select an option" formControlName="priceType">
+    <mat-radio-button value="free">Free</mat-radio-button>
+    <mat-radio-button value="premium">premium</mat-radio-button>
+  </mat-radio-group>
+  <mat-form-field appearance="outline" style="margin-top: 10px;">
+    <mat-label>Price</mat-label>
+    <input type='number' matInput placeholder="Price" formControlName="price">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Promotional period</mat-label>
+    <mat-date-range-input [rangePicker]="promotionPicker">
+      <input matStartDate placeholder="Start date" formControlName="promoStartAt">
+      <input matEndDate placeholder="End date" formControlName="promoEndAt">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="promotionPicker"></mat-datepicker-toggle>
+    <mat-date-range-picker #promotionPicker></mat-date-range-picker>
+  </mat-form-field>
+  <div style="margin-top: 20px;">
+    {{ form.value | json }}
+  </div>
+</div>

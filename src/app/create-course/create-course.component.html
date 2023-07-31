@@ -2,15 +2,15 @@
 
   <h2 class="title">Create New Course</h2>
 
-  <mat-horizontal-stepper class="mat-elevation-z5" labelPosition="bottom" [linear]="true">
-    <mat-step [stepControl]="step1.form">
+  <mat-horizontal-stepper class="mat-elevation-z5" labelPosition="bottom" [linear]="false">
+    <mat-step [stepControl]="step1.form" errorMessage="fill in the fields properly">
       <ng-template matStepLabel>Course Landing Page details</ng-template>
       <create-course-step-1 #step1></create-course-step-1>
       <div class="stepper-buttons">
         <button mat-raised-button matStepperNext color="primary">Next</button>
       </div>
     </mat-step>
-    <mat-step>
+    <mat-step errorMessage="p">
       <ng-template matStepLabel>Course Pricing Details</ng-template>
       <create-course-step-2></create-course-step-2>
       <div class="stepper-buttons">
