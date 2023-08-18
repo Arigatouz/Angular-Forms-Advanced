@@ -16,7 +16,14 @@
     <mat-datepicker-toggle matSuffix [for]="promotionPicker"></mat-datepicker-toggle>
     <mat-date-range-picker #promotionPicker></mat-date-range-picker>
   </mat-form-field>
+  <file-upload requiredFileType="image/png" formControlName="thumbnail"></file-upload>
+  <mat-error *ngIf="form.controls.thumbnail.touched && form.controls.thumbnail.errors?.['required']">
+    this is
+    required</mat-error>
   <div style="margin-top: 20px;">
     {{ form.value | json }}
+    <div>
+      {{form.valid }}
+    </div>
   </div>
 </div>

@@ -20,6 +20,7 @@ export class CreateCourseStep2Component implements OnInit {
         Validators.pattern("[0-9]+"),
       ],
     ],
+    thumbnail: [null, Validators.required],
     promoStartAt: [null],
     promoEndAt: [null],
   });
